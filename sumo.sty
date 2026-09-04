@@ -1,0 +1,299 @@
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{math}
+
+\usepackage{calc}
+\usepackage{fontspec}
+\usepackage{ifthen}
+
+\definecolor{DarkGray}{HTML}{333333}
+\colorlet{SumoPurple}{BrickRed!50!Blue}
+
+\newcommand{\RomanNumeral}[1]{%
+\ifthenelse{\equal{#1}{18}}{XIIX}{\uppercase\expandafter{\romannumeral #1\relax}}%
+}
+
+\newlength{\cardwidth}
+\newlength{\cardheight}
+\newlength{\bleed}
+\newlength{\horizspace}
+\newlength{\vertspace}
+\newlength{\vertdist}
+\newlength{\horizdist}
+
+\setlength{\cardwidth}{2.5in}
+\setlength{\cardheight}{3.5in}
+\setlength{\bleed}{0.0625in}
+\setlength{\horizspace}{0.0625in}
+\setlength{\horizdist}{\cardwidth + 2\bleed + \horizspace}
+\setlength{\vertspace}{0.0625in}
+\setlength{\vertdist}{\cardheight + 2\bleed + \vertspace}
+
+\tikzset{guidecross/.pic={
+	\draw[#1] (-\bleed,0) -- (\bleed,0);
+	\draw[#1] (0, -\bleed) -- (0, \bleed);
+}}
+
+\tikzset{cutguide/.pic={
+	\pic () at (-\cardwidth/2, \cardheight/2) {guidecross={#1}};
+	\pic () at (\cardwidth/2, \cardheight/2) {guidecross={#1}};
+	\pic () at (-\cardwidth/2, -\cardheight/2) {guidecross={#1}};
+	\pic () at (\cardwidth/2, -\cardheight/2) {guidecross={#1}};
+}}
+
+\tikzset{cardbackpattern/.pic={
+	\foreach \i in {-1.25, -1.0,...,1.25}
+		\foreach \j in {-1.75, -1.5, ..., 1.75}
+			\draw[very thick, #1] (\i,\j) circle (0.105);
+
+	\foreach \i in {-1.375, -1.125, -0.875,...,1.125, 1.375}
+		\foreach \j in {-1.875, -1.625, ..., 1.875}
+			\draw[very thick, #1] (\i,\j) circle (0.105);
+}}
+
+\tikzset{pics/cardfrontpattern/.style n args={5}{
+code={
+	\setmainfont[Scale=6.0]{Roboto Slab}
+	\draw[line width=0.25ex, rounded corners=3mm, #5, fill=white] (0,1.5) --++ (1.0, 0) --++ (0, -3) --++ (-2,0) --++ (0,3) -- cycle;
+
+	\node[rotate=180, transform shape] at (-0.4, 0.725) {{\LARGE \textcolor{#3}{#1}}};
+	\node at (0.4, -0.725) {{\LARGE \textcolor{#4}{#2}}};
+
+%	\node (ul) at (-0.9, 1.4) {{\tiny \textcolor{#3}{#1}}};
+%	\node[transform shape, rotate=180] (lr) at (0.9, -1.4) {{\tiny \textcolor{#3}{#2}}};
+	
+%	\draw[line width=0.25ex, rounded corners=3mm, #3] (ul) --++ (1.8, 0) -- (lr);
+%	\draw[line width=0.25ex, rounded corners=3mm, #3] (lr) --++ (-1.8, 0) -- (ul);
+	
+}}}
+
+
+\tikzset{cardbackprintable/.pic={
+	\begin{scope}
+	\clip (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+	% Pattern for card back
+	\pic () at (0,0) {cardbackpattern={#1}};
+	% Cutting guides for corners of the cards	
+	\pic () at (0,0) {cutguide={black}};
+\end{scope}
+}}
+
+
+\tikzset{pics/cardfrontprintable/.style n args={5}{
+code={
+	\begin{scope}
+	\clip (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+	% Pattern for card front
+	\pic () at (0,0) {cardfrontpattern={#1}{#2}{#3}{#4}{#5}};
+	% Cutting guides for corners of the cards	
+	\pic () at (0,0) {cutguide={white}};
+\end{scope}
+}}}
+
+
+\tikzset{pics/cardfrontprintable2/.style n args={6}{
+code={
+	\begin{scope}
+	\clip (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+	\fill[Goldenrod] (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+
+	% Pattern for card front
+	\pic () at (0,0) {cardfrontpattern={#1}{#2}{#3}{#4}{#5}};
+	
+	\node at (-0.625in, -1.12in) {\setmainfont{Roboto Slab-Bold}\Huge \textcolor{DarkGray}{#6}};
+	\node[rotate=180, transform shape] at (0.625in, 1.12in) {\setmainfont{Roboto Slab-Bold}\Huge \textcolor{DarkGray}{#6}};
+
+	% Cutting guides for corners of the cards	
+	\pic () at (0,0) {cutguide={white}};
+\end{scope}
+}}}
+
+
+\tikzset{balancecardback/.pic={
+	\begin{scope}
+	\clip (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.7in + \bleed, fill=Blue, draw=white, ultra thick] at (0,1.4in+\bleed/2) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.7in, fill=BrickRed!25!Blue, draw=white, ultra thick] at (0,0.7in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.7in, fill=BrickRed!50!Blue, draw=white, ultra thick] at (0,0) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.7in, fill=BrickRed!75!Blue, draw=white, ultra thick] at (0,-0.7in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.7in + \bleed, fill=BrickRed, draw=white, ultra thick] at (0,-1.4in-\bleed/2) {};	
+
+	% Cutting guides for corners of the cards	
+	\pic () at (0,0) {cutguide={white}};
+\end{scope}
+}}
+
+\tikzset{balancecardfront/.pic={
+	\begin{scope}
+	\clip (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.7in + \bleed, fill=Blue, draw=white, ultra thick] at (0,1.4in+\bleed/2) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.7in, fill=BrickRed!25!Blue, draw=white, ultra thick] at (0,0.7in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.7in, fill=BrickRed!50!Blue, draw=white, ultra thick] at (0,0) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.7in, fill=BrickRed!75!Blue, draw=white, ultra thick] at (0,-0.7in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.7in + \bleed, fill=BrickRed, draw=white, ultra thick] at (0,-1.4in-\bleed/2) {};	
+
+	% Cutting guides for corners of the cards	
+%	\pic () at (0,0) {cutguide={white}};
+\end{scope}
+}}
+
+
+\tikzset{balancecard7back/.pic={
+	\begin{scope}
+	\clip (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in + \bleed, fill=Blue, draw=white, ultra thick] at (0,1.5in+\bleed/2) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in, fill=BrickRed!17!Blue, draw=white, ultra thick] at (0,1.0in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in, fill=BrickRed!33!Blue, draw=white, ultra thick] at (0,0.5in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in, fill=BrickRed!50!Blue, draw=white, ultra thick] at (0,0) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in, fill=BrickRed!67!Blue, draw=white, ultra thick] at (0,-0.5in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in, fill=BrickRed!83!Blue, draw=white, ultra thick] at (0,-1.0in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in + \bleed, fill=BrickRed, draw=white, ultra thick] at (0,-1.5in-\bleed/2) {};	
+
+	% Cutting guides for corners of the cards	
+	\pic () at (0,0) {cutguide={white}};
+\end{scope}
+}}
+
+\tikzset{balancecard7front/.pic={
+	\begin{scope}
+	\clip (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in + \bleed, fill=Blue, draw=white, ultra thick] at (0,1.5in+\bleed/2) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in, fill=BrickRed!17!Blue, draw=white, ultra thick] at (0,1.0in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in, fill=BrickRed!33!Blue, draw=white, ultra thick] at (0,0.5in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in, fill=BrickRed!50!Blue, draw=white, ultra thick] at (0,0) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in, fill=BrickRed!67!Blue, draw=white, ultra thick] at (0,-0.5in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in, fill=BrickRed!83!Blue, draw=white, ultra thick] at (0,-1.0in) {};	
+	\node[minimum width=\cardwidth + 2\bleed, minimum height=0.5in + \bleed, fill=BrickRed, draw=white, ultra thick] at (0,-1.5in-\bleed/2) {};	
+
+	% Cutting guides for corners of the cards	
+%	\pic () at (0,0) {cutguide={white}};
+\end{scope}
+}}
+
+\tikzset{pics/arrowcard/.style n args={3}{
+code={
+	\begin{scope}
+	\clip (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+	      
+	\path[fill=#2] (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+
+	% Pattern for card back
+
+	\draw[line width=0.125in, #1] (0,1.625in) -- (0,-1.625in);
+	\draw[line width=0.125in, #1] (-0.25in, -1.375in) -- (0,-1.625in) -- (0.25in, -1.375in);
+	
+	\node[rotate=-90, transform shape] at (0,0) {\includegraphics[height=2in]{Images/#1_sumo2.png}};	
+	
+	% Cutting guides for corners of the cards	
+	\pic () at (0,0) {cutguide={#3}};
+\end{scope}
+}}}
+
+\tikzset{pics/doublearrowcard/.style n args={3}{
+code={
+	\begin{scope}
+	\clip (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+	      
+	\path[fill=#2] (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+
+	% Pattern for card back
+
+	\draw[line width=0.125in, #1] (0,1.625in) -- (0,-1.625in);
+	\draw[line width=0.125in, #1] (-0.25in, -1.375in) -- (0,-1.625in)  -- (0.25in, -1.375in);
+	\draw[line width=0.125in, #1] (-0.25in, 1.375in) -- (0,1.625in) -- (0.25in, 1.375in);
+
+	\node[rotate=-90, transform shape] at (0,0) {\includegraphics[height=2in]{Images/#1_sumo2.png}};	
+	
+	% Cutting guides for corners of the cards	
+	\pic () at (0,0) {cutguide={#3}};
+\end{scope}
+}}}
+
+
+\tikzset{pics/advantagecard/.style n args={2}{
+code={
+	\begin{scope}
+	\clip (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+
+	\path[fill=#1] (-\cardwidth/2 - \bleed, 0in) --%
+	      (-\cardwidth/2 - \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, \cardheight/2 + \bleed) --%
+	      (\cardwidth/2 + \bleed, -\cardheight/2 - \bleed) --%
+	      (-\cardwidth/2 - \bleed, -\cardheight/2 - \bleed) --%
+	      cycle;
+
+%	\node at (0,0) {\includegraphics[height=2.5in]{Images/gyoji.png}};
+
+	% Cutting guides for corners of the cards	
+	\pic () at (0,0) {cutguide={#2}};
+\end{scope}
+}}}

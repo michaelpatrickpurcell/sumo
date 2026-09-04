@@ -1,0 +1,114 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage[margin=0.125in]{geometry}
+\usepackage[skip=0pt]{parskip}
+
+\usepackage{sumo}
+
+\begin{document}
+\phantom{a}
+\begin{center}
+\begin{tikzpicture}[x=1in, y=1in]
+\pic () at (0,0) {cardbackprintable={BrickRed}};
+\pic () at (\horizdist,0) {cardbackprintable={BrickRed}};
+\pic () at (2\horizdist,0) {cardbackprintable={BrickRed}};
+
+\pic () at (0,-\vertdist) {cardbackprintable={BrickRed}};
+\pic () at (\horizdist,-\vertdist) {cardbackprintable={BrickRed}};
+\pic () at (2\horizdist,-\vertdist) {cardbackprintable={BrickRed}};
+
+\pic () at (0,-2\vertdist) {cardbackprintable={BrickRed}};
+\pic () at (\horizdist,-2\vertdist) {balancecard7back};
+%\pic[xscale=-1, yscale=-1, transform shape] () at (2\horizdist,-2\vertdist) {arrowcard={BrickRed}{Goldenrod}{black}};
+\pic[yscale=-1, transform shape] () at (2\horizdist,-2\vertdist) {arrowcard={BrickRed}{Goldenrod}{black}};
+\end{tikzpicture}	
+\end{center}
+\newpage%
+\phantom{a}
+\begin{center}
+\begin{tikzpicture}[x=1in, y=1in]
+\pic () at (0,0) {cardfrontprintable={0}{1}{BrickRed}{BrickRed}{BrickRed}};
+\pic () at (\horizdist, 0) {cardfrontprintable={0}{2}{BrickRed}{BrickRed}{BrickRed}};
+\pic () at (2\horizdist, 0) {cardfrontprintable={1}{2}{BrickRed}{BrickRed}{BrickRed}};
+
+\pic () at (0, -\vertdist) {cardfrontprintable={0}{0}{BrickRed}{BrickRed}{Goldenrod}};
+\pic () at (\horizdist, -\vertdist) {cardfrontprintable={1}{1}{BrickRed}{BrickRed}{BrickRed}};
+\pic () at (2\horizdist, -\vertdist) {cardfrontprintable={2}{2}{BrickRed}{BrickRed}{BrickRed}};
+
+%\pic[xscale=-1, yscale=-1, transform shape] () at (0, -2\vertdist) {arrowcard={BrickRed}{White}{White}};
+\pic[yscale=-1, transform shape] () at (0, -2\vertdist) {arrowcard={BrickRed}{White}{White}};
+\pic () at (\horizdist, -2\vertdist) {balancecard7front};
+\pic () at (2\horizdist, -2\vertdist) {cardfrontprintable={1}{1}{Blue}{Blue}{BrickRed}};
+\end{tikzpicture}
+\end{center}
+\newpage%
+\phantom{a}
+\begin{center}
+\begin{tikzpicture}[x=1in, y=1in]
+\pic () at (0,0) {cardbackprintable={Blue}};
+\pic () at (\horizdist,0) {cardbackprintable={Blue}};
+\pic () at (2\horizdist,0) {cardbackprintable={Blue}};
+
+\pic () at (0,-\vertdist) {cardbackprintable={Blue}};
+\pic () at (\horizdist,-\vertdist) {cardbackprintable={Blue}};
+\pic () at (2\horizdist,-\vertdist) {cardbackprintable={Blue}};
+
+\pic () at (0,-2\vertdist) {cardbackprintable={Blue}};
+\pic () at (\horizdist,-2\vertdist) {advantagecard={Goldenrod}{black}};
+\pic[yscale=-1, transform shape] () at (2\horizdist,-2\vertdist) {arrowcard={Blue}{Goldenrod}{black}};
+\end{tikzpicture}	
+\end{center}
+\newpage%
+\phantom{a}
+\begin{center}
+\begin{tikzpicture}[x=1in, y=1in]
+\pic () at (0,0) {cardfrontprintable={0}{1}{Blue}{Blue}{Blue}};
+\pic () at (\horizdist, 0) {cardfrontprintable={0}{2}{Blue}{Blue}{Blue}};
+\pic () at (2\horizdist, 0) {cardfrontprintable={1}{2}{Blue}{Blue}{Blue}};
+
+\pic () at (0, -\vertdist) {cardfrontprintable={0}{0}{Blue}{Blue}{Goldenrod}};
+\pic () at (\horizdist, -\vertdist) {cardfrontprintable={1}{1}{Blue}{Blue}{Blue}};
+\pic () at (2\horizdist, -\vertdist) {cardfrontprintable={2}{2}{Blue}{Blue}{Blue}};
+
+\pic[yscale=-1, transform shape] () at (0, -2\vertdist) {arrowcard={Blue}{White}{White}};
+\pic () at (\horizdist, -2\vertdist) {advantagecard={Goldenrod}{Goldenrod}};%{advantagecard={BrickRed!50!Blue}{BrickRed!50!Blue}};
+%\pic () at (\horizdist, -2\vertdist) {balancecardfront={Blue}};%{advantagecard={BrickRed!50!Blue}{BrickRed!50!Blue}};
+\pic () at (2\horizdist, -2\vertdist) {cardfrontprintable={1}{1}{BrickRed}{BrickRed}{Blue}};
+\end{tikzpicture}
+\end{center}
+%\newpage%
+%\phantom{a}
+%\begin{center}
+%\begin{tikzpicture}[x=1in, y=1in]
+%\pic () at (0,0) {cardbackprintable={DarkGray}};
+%\pic () at (\horizdist,0) {cardbackprintable={DarkGray}};
+%\pic () at (2\horizdist,0) {cardbackprintable={DarkGray}};
+%
+%\pic () at (0,-\vertdist) {cardbackprintable={DarkGray}};
+%\pic () at (\horizdist,-\vertdist) {cardbackprintable={DarkGray}};
+%\pic () at (2\horizdist,-\vertdist) {cardbackprintable={DarkGray}};
+%
+%\pic () at (0,-2\vertdist) {cardbackprintable={DarkGray}};
+%\pic () at (\horizdist,-2\vertdist) {advantagecard={Goldenrod}{black}};
+%\pic[yscale=-1, transform shape] () at (2\horizdist,-2\vertdist) {doublearrowcard={DarkGray}{Goldenrod}{black}};
+%\end{tikzpicture}	
+%\end{center}
+%\newpage%
+%\phantom{a}
+%\begin{center}
+%\begin{tikzpicture}[x=1in, y=1in]
+%\pic () at (0,0) {cardfrontprintable={0}{1}{DarkGray}{BrickRed}{DarkGray}};
+%\pic () at (\horizdist, 0) {cardfrontprintable={0}{1}{DarkGray}{Blue}{DarkGray}};
+%\pic () at (2\horizdist, 0) {cardfrontprintable={1}{1}{BrickRed}{Blue}{DarkGray}};
+%
+%\pic () at (0, -\vertdist) {cardfrontprintable={0}{0}{DarkGray}{DarkGray}{DarkGray}};
+%\pic () at (\horizdist, -\vertdist) {cardfrontprintable={1}{1}{BrickRed}{BrickRed}{DarkGray}};
+%\pic () at (2\horizdist, -\vertdist) {cardfrontprintable={1}{1}{Blue}{Blue}{DarkGray}};
+%
+%\pic[yscale=-1, transform shape] () at (0, -2\vertdist) {doublearrowcard={DarkGray}{white}{white}};
+%\pic () at (\horizdist, -2\vertdist) {advantagecard={Goldenrod}{Goldenrod}};%{advantagecard={BrickRed!50!Blue}{BrickRed!50!Blue}};
+%%\pic () at (\horizdist, -2\vertdist) {balancecard={Blue}};%{advantagecard={BrickRed!50!Blue}{BrickRed!50!Blue}};
+%\pic () at (2\horizdist, -2\vertdist) {cardfrontprintable={2}{2}{BrickRed}{Blue}{DarkGray}};
+%\end{tikzpicture}
+%\end{center}
+
+\end{document}
