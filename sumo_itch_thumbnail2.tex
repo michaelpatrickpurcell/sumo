@@ -1,0 +1,21 @@
+\documentclass{standalone}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+
+\usepackage{fontspec}
+\setmainfont[Scale=5]{Noto Sans JP-Bold}
+
+\usepackage{contour}
+\contournumber{1000}
+
+\begin{document}
+\begin{tikzpicture}
+\clip (-6.3cm, -5cm) rectangle (6.3cm, 5cm);
+\node[inner sep=0pt] at (-5.4cm, -1.7cm) {\includegraphics[height=12cm]{Images/BrickRed_sumo2.png}};
+\node[inner sep=0pt, xscale=-1, transform shape] at (6cm, -1.7cm) {\includegraphics[height=12cm]{Images/Blue_sumo2.png}};
+
+\node[inner sep=0pt] at (0, 2.5cm) {\Huge \contour{black}{\textcolor{Goldenrod}{相}}};
+\node[inner sep=0pt] at (0, -2.5cm) {\Huge \contour{black}{\textcolor{Goldenrod}{撲}}};
+\end{tikzpicture}
+\end{document}

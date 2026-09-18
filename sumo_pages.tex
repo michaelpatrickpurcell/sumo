@@ -1,0 +1,79 @@
+\documentclass[a6paper, parskip=half, DIV=14, 12pt]{scrartcl}
+
+%\usepackage{marblesuperheroes}
+
+\usepackage{sumorules}
+
+\begin{document}
+{%
+\thispagestyle{empty}
+		\enlargethispage{3.5\baselineskip} % Move the bottom line (author and date) down a bit
+\setmainfont[Scale=1.0]{Noto Sans JP}
+\begin{center}
+\makeatletter
+{\footnotesize Version \@version}
+\makeatother
+
+\medskip
+
+{
+\setmainfont[Scale=3]{Noto Sans JP-Bold}
+\Huge
+相撲
+}
+
+\bigskip
+
+{
+\setmainfont[Scale=3]{Noto Sans JP-Bold}
+\Huge
+SUMO
+}
+
+\bigskip
+
+\includegraphics[height=1.8in]{Images/BrickRed_sumo2.png} \hfill \scalebox{-1}[1]{\includegraphics[height=1.8in]{Images/Blue_sumo2.png}}
+
+\vfill{}
+
+{
+\setmainfont{Noto Sans JP}
+\large
+Designed by Michael Purcell
+}
+\end{center}
+}
+
+\newpage
+\input{sumo_overview}
+
+\input{sumo_components}
+
+\newpage
+
+\input{sumo_setup}
+
+\newpage
+
+\input{sumo_prelude}
+
+\newpage
+
+\input{sumo_gameplay}
+
+\newpage
+
+\input{sumo_balance}
+
+\input{sumo_advantage}
+
+\newpage
+
+\input{sumo_match}
+
+\vfill
+
+\hrulefill
+
+{\textbf{Design}: Michael Purcell \hfill \textbf{Contact}:~\href{mailto:mike@armiger.games}{mike@armiger.games}}
+\end{document}

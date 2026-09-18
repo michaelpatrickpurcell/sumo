@@ -1,0 +1,19 @@
+\documentclass{standalone}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+
+\usepackage{fontspec}
+\setmainfont[Scale=4]{Noto Sans JP-Bold}
+
+\begin{document}
+\begin{tikzpicture}
+\path (-6.3cm, -5cm) -- (6.3cm, 5cm);
+
+\node[inner sep=0pt] at (0, 3.25cm) {\Huge SUMO};
+
+\node[inner sep=0pt] at (-3cm, -1.7cm) {\includegraphics[height=6cm]{Images/BrickRed_sumo2.png}};
+\node[inner sep=0pt, xscale=-1, transform shape] at (3cm, -1.7cm) {\includegraphics[height=6cm]{Images/Blue_sumo2.png}};
+
+\end{tikzpicture}
+\end{document}
